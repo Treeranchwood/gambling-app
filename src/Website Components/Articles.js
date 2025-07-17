@@ -1,11 +1,10 @@
-import {useState, useContext} from 'react'; // useState and useContext might not be needed if useNavigate is the only hook
-import NavigationContext from '../Contexts/NavigationContext.js'; // Might not be directly needed in Home if useNavigate handles it
-import Button from '@mui/material/Button';
 import useNavigate from '../Hooks/useNavigate.js' // Import your custom hook
 import React from 'react';
-import IconButton from '@mui/material/IconButton';
-import HomeIcon from '@mui/icons-material/Home';
-import { Stack } from '@mui/material'; // Import Stack for layout
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import Toolbar from '@mui/material/Toolbar';
 
 import {
   Box,
@@ -15,36 +14,23 @@ import {
   Card,
   CardContent,
 } from '@mui/material';
-import {
-  CalendarToday as CalendarIcon,
-  EmojiEvents as GoalsIcon,
-  Book as JournalIcon,
-} from '@mui/icons-material';
+
+
 
     const Articles = () => {
-    const navigate = useNavigate(); // Use the custom hook to get the navigate function
+    const navigate = useNavigate();
     return (
     <Box sx={{
       minHeight: '100vh',
-      bgcolor: 'background.default', // Use Material-UI theme background
-      fontFamily: 'Inter, sans-serif', // Ensure font is applied
+      bgcolor: 'background.default', 
+      fontFamily: 'Inter, sans-serif', 
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'center', // Center content vertically
-      alignItems: 'center', // Center content horizontally
-      p: 4, // Add some padding around the content
+      pt: 2,  // Reduced top padding
+      px: 4,  // Keep horizontal padding
     }}>
-      {/* Material-UI CDN for styling and Roboto font */}
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
-      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-      <script src="https://unpkg.com/@mui/material@latest/umd/material-ui.production.min.js"></script>
-      <script src="https://unpkg.com/@emotion/react@latest/umd/emotion-react.production.min.js"></script>
-      <script src="https://unpkg.com/@emotion/styled@latest/umd/emotion-styled.production.min.js"></script>
-      <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-      <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-      <script src="https://unpkg.com/@mui/icons-material@latest/umd/material-ui-icons.production.min.js"></script>
 
-      <Container maxWidth="lg" sx={{ textAlign: 'center', py: 8 }}>
+      <Container maxWidth="lg" sx={{ textAlign: 'center', pt: 2 }}>
         <Typography variant="h4" component="h2" gutterBottom sx={{ color: 'text.primary', fontWeight: 'bold' }}>
           Articles
         </Typography>
@@ -52,7 +38,8 @@ import {
           These articles are designed to help educate on the dangers of gambling!
         </Typography>
         <Grid container spacing={4} justifyContent="center">
-          {/* Navigation Card for Weekly Planner */}
+         
+
           <Grid item xs={12} sm={6} md={4}>
             <div>
             <Card
@@ -73,15 +60,15 @@ import {
                   cursor: 'pointer',
                 },
               }}
-              onClick={() => navigate('Article1') } // Use the navigate function from the custom hook
+              onClick={() => navigate('Article1') } 
             >
               <CardContent sx={{ textAlign: 'center' }}>
-                <img src="download.webp"/>
+                <img style={{ borderRadius: "10%" }} src="download.webp"/>
                 <Typography variant="h5" component="h3" gutterBottom sx={{ fontWeight: 'medium' }}>
-                  Weekly Planner
+                  Is Gambling Haram?
                 </Typography>
                 <Typography variant="body1" color="text.secondary">
-                  Organize your week and schedule activities to support your recovery.
+                  Behold the answers to the universe.
                 </Typography>
               </CardContent>
             </Card>

@@ -1,5 +1,4 @@
-import Button from '@mui/material/Button';
-import UndoIcon from '@mui/icons-material/Undo';
+import Toolbar from '@mui/material/Toolbar';
 import Stack from '@mui/material/Stack';
 import useNavigate from '../Hooks/useNavigate.js';
 import IconButton from '@mui/material/IconButton';
@@ -15,12 +14,15 @@ function Grattitude () {
     console.log(renderComponent);
 
     return (
+        <>
         <Stack direction="row">
+
             <h1>{renderComponent}</h1>
             <IconButton variant = "text" sx = {{ml:2, mt:1}} onClick={()=> navigate("WeeklyPlanner")}>
                 <HomeIcon sx={{ color: 'black', size : "large", edge: "start", }} className="undo-button"/>
             </IconButton>
         </Stack>
+        </>
     )
 
 

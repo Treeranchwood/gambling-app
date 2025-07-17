@@ -1,5 +1,10 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 
 const Footer = () => {
   return (
@@ -15,14 +20,7 @@ const Footer = () => {
         mt: 'auto',
       }}
     >
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
-      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-      <script src="https://unpkg.com/@mui/material@latest/umd/material-ui.production.min.js"></script>
-      <script src="https://unpkg.com/@emotion/react@latest/umd/emotion-react.production.min.js"></script>
-      <script src="https://unpkg.com/@emotion/styled@latest/umd/emotion-styled.production.min.js"></script>
-      <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-      <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-      <script src="https://unpkg.com/@mui/icons-material@latest/umd/material-ui-icons.production.min.js"></script>
+
 
       <Typography variant="body2">
         &copy; {new Date().getFullYear()}  All rights reserved.

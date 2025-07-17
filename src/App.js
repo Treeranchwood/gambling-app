@@ -8,19 +8,20 @@ import Grattitude from './Website Components/Grattitude.js';
 import Home from './Website Components/Home.js';
 import WeeklyPlanner from './Website Components/WeeklyPlanner.js';
 import LandingPage from './Website Components/LandingPage.js'
-import NavigationContext from './Contexts/NavigationContext.js'; // Adjust path if needed
+import NavigationContext from './Contexts/NavigationContext.js';
+import ThemeContext from './Contexts/ThemeContext.js';
 import Article1 from './Articles/Article1.js'
-import { Toolbar } from '@mui/material';
-
+import { Box } from '@mui/material';
 
 function App() {
-  const [renderComponent, setRenderComponent] = useState("Home"); // Default component to render
+  const [renderComponent, setRenderComponent] = useState("Home"); // State to determine current website output
+  const [theme, setTheme] = useState("light") // state to change the theme between dark and light
 
   const componentMap = {
-    "LandingPage": LandingPage, // The key is the string name, the value is the actual imported component
+    // map to change a string an object
+    "LandingPage": LandingPage, 
     "Home": Home,
     "Articles": Articles,
-    // Add all your other components here if you want to dynamically render them
     "Goals": Goals,
     "Grattitude": Grattitude,
     "WeeklyPlanner": WeeklyPlanner,
@@ -30,17 +31,27 @@ function App() {
 
   const ElementType = componentMap[renderComponent]
 
-
-
   return (
-    <NavigationContext.Provider value={{ renderComponent, setRenderComponent }}>    
-      <Navbar></Navbar>      
-      <ElementType/> 
-      <Footer/>
-    
-
-    
-    </NavigationContext.Provider>
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      <NavigationContext.Provider value={{ renderComponent, setRenderComponent }}>
+        <Navbar />
+        {renderComponent === "LandingPage" ? (
+          <Box
+            sx={{
+              minHeight: '100vh',
+              width: '100%',
+              margin: '0',
+              backgroundImage: 'linear-gradient(135deg, #e0f7fa 0%, #e8eaf6 100%)',
+            }}
+          >
+            <ElementType />
+          </Box>
+        ) : (
+          <ElementType />
+        )}
+        <Footer />
+      </NavigationContext.Provider>
+    </ThemeContext.Provider>
   );
 }
 
