@@ -12,10 +12,13 @@ import NavigationContext from './Contexts/NavigationContext.js';
 import ThemeContext from './Contexts/ThemeContext.js';
 import Article1 from './Articles/Article1.js'
 import { Box } from '@mui/material';
+import { CssBaseline } from '@mui/material';
+import { ThemeProvider } from '@mui/material/styles';
+import { light, dark } from './Contexts/themes.js';
 
 function App() {
   const [renderComponent, setRenderComponent] = useState("Home"); // State to determine current website output
-  const [theme, setTheme] = useState("light") // state to change the theme between dark and light
+  const [theme, setTheme] = useState('dark')
 
   const componentMap = {
     // map to change a string an object
@@ -30,27 +33,31 @@ function App() {
   }
 
   const ElementType = componentMap[renderComponent]
+  const currentTheme = theme === 'dark' ? dark : light;
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
-      <NavigationContext.Provider value={{ renderComponent, setRenderComponent }}>
-        <Navbar />
-        {renderComponent === "LandingPage" ? (
-          <Box
-            sx={{
-              minHeight: '100vh',
-              width: '100%',
-              margin: '0',
-              backgroundImage: 'linear-gradient(135deg, #e0f7fa 0%, #e8eaf6 100%)',
-            }}
-          >
+      <ThemeProvider theme={currentTheme}>
+        <CssBaseline />
+        <NavigationContext.Provider value={{ renderComponent, setRenderComponent }}>
+          <Navbar />
+          {renderComponent === "LandingPage" ? (
+            <Box
+              sx={{
+                minHeight: '100vh',
+                width: '100%',
+                margin: '0',
+                backgroundImage: theme === 'light' ? 'linear-gradient(135deg, #e0f7fa 0%, #e8eaf6 100%)' : 'none',
+              }}
+            >
+              <ElementType />
+            </Box>
+          ) : (
             <ElementType />
-          </Box>
-        ) : (
-          <ElementType />
-        )}
-        <Footer />
-      </NavigationContext.Provider>
+          )}
+          <Footer />
+        </NavigationContext.Provider>
+      </ThemeProvider>
     </ThemeContext.Provider>
   );
 }

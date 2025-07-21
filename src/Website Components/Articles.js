@@ -37,10 +37,8 @@ import {
         <Typography variant="h6" sx={{ color: 'text.secondary', mb: 6, maxWidth: '800px', mx: 'auto' }}>
           These articles are designed to help educate on the dangers of gambling!
         </Typography>
-        <Grid container spacing={4} justifyContent="center">
+        <Grid container spacing={4} justifyContent="center" item xs={12} sm={6} md={4}>
          
-
-          <Grid item xs={12} sm={6} md={4}>
             <div>
             <Card
               variant="outlined"
@@ -52,13 +50,7 @@ import {
                 justifyContent: 'center',
                 p: 3,
                 borderRadius: 3,
-                boxShadow: 3,
-                transition: '0.3s',
-                '&:hover': {
-                  boxShadow: 6,
-                  transform: 'translateY(-5px)',
-                  cursor: 'pointer',
-                },
+
               }}
               onClick={() => navigate('Article1') } 
             >
@@ -73,7 +65,6 @@ import {
               </CardContent>
             </Card>
             </div>
-          </Grid>
           </Grid>
       </Container>
     </Box>

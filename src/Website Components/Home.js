@@ -38,7 +38,7 @@ import {
           this app is designed to help you to quit gambling
         </Typography>
         <Typography variant="h6" sx={{ color: 'text.secondary', mb: 6, maxWidth: '800px', mx: 'auto' }}>
-          WOOOHOOOOOO
+          WOOOHOOOOOO!!!
         </Typography>
         <Grid container spacing={4} justifyContent="center">
 
@@ -134,7 +134,7 @@ import {
                   cursor: 'pointer',
                 },
               }}
-              onClick={() => navigate("WeeklyPlanner")} // Use the navigate function from the custom hook
+              onClick={() => navigate("Grattitude")} // Use the navigate function from the custom hook
             >
               <CardContent sx={{ textAlign: 'center' }}>
                 <JournalIcon sx={{ fontSize: 80, color: 'secondary.main', mb: 2 }} />

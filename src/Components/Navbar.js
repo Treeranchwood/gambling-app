@@ -13,11 +13,12 @@ import Slide from '@mui/material/Slide';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
-import LightModeIcon from '@mui/icons-material/LightMode';
 import { FormControlLabel } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
+import {dark, light} from '../Contexts/themes.js'
+import { ThemeProvider } from '@mui/material/styles';
+import ThemeContext from '../Contexts/ThemeContext.js';
 
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
@@ -110,14 +111,30 @@ HideOnScroll.propTypes = {
 
 
 function Navbar(props) {
+
+
+
+
   const {renderComponent} = useContext(NavigationContext);
   const navigate = useNavigate();
+  const {theme, setTheme} = useContext(ThemeContext);
 
-  const buttonText1 = renderComponent == "Articles" ? "Home" : "Articles";
-  const buttonText2 = renderComponent == "Article1" ? "Home" : "Articles";
+
+
+  function changeTheme(){
+    setTheme(prevState => prevState === 'dark' ? 'light' : 'dark');
+  }
+
+   const componentMap = {
+    'light': light,
+    'dark': dark,
+   }
+
+  const buttonText1 = renderComponent === "Articles" ? "Home" : "Articles";
+  const buttonText2 = renderComponent === "Article1" ? "Home" : "Articles";
   let buttonText = "Articles"
 
-  if (buttonText1 == "Home" || buttonText2 == "Home"){
+  if (buttonText1 === "Home" || buttonText2 === "Home"){
     buttonText = "Home"
   }
   
@@ -132,10 +149,14 @@ function Navbar(props) {
 
     checkMobile();
     window.addEventListener('resize', checkMobile);
-  }, [])
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const currentTheme = componentMap[theme]
 
 if (mobileNavbar){
-  return (<>
+  return (
+    <ThemeProvider theme={currentTheme}>
     <Box sx={{display: 'flex'}}>
     <HideOnScroll {...props}>
     <AppBar 
@@ -159,7 +180,13 @@ if (mobileNavbar){
           </Box>
 
           <FormControlLabel
-        control={<MaterialUISwitch sx={{ m: 1,  display: 'flex', justifyContent: 'right', alignItems: 'right'}}   />}
+        control={
+          <MaterialUISwitch 
+            sx={{ m: 1 }}
+            checked={theme === 'dark'}
+            onChange={changeTheme}
+          />
+        }
       />
 
         </Toolbar>
@@ -167,11 +194,13 @@ if (mobileNavbar){
     </HideOnScroll>
     </Box>
     <Box sx={{ minHeight: { xs: 56, sm: 64 } }} /> {/* provides space for the navbar */}
-    </>
+
+    </ThemeProvider>
     
   );
 } else {
-  return(<>
+  return(
+    <ThemeProvider theme={currentTheme}>
     <Box sx={{display: 'flex'}}>
     <AppBar 
     
@@ -194,7 +223,13 @@ if (mobileNavbar){
           </Box>
 
           <FormControlLabel
-        control={<MaterialUISwitch sx={{ m: 1,  display: 'flex', justifyContent: 'right', alignItems: 'right'}}   />}
+        control={
+          <MaterialUISwitch 
+            sx={{ m: 1 }}
+            checked={theme === 'dark'}
+            onChange={changeTheme}
+          />
+        }
       />
 
         </Toolbar>
@@ -202,7 +237,7 @@ if (mobileNavbar){
     </Box>
     <Box sx={{ minHeight: { xs: 56, sm: 64 } }} /> {/* provides space for the navbar */}
     
-    </>
+    </ThemeProvider>
   )
   
 }

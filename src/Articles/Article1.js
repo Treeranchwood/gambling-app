@@ -18,7 +18,7 @@ function Article1 (){
 
            <span style={{ mt: 2, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
 
-            <IconButton sx = {{position: "fixed", left: 51, top: 72}} variant = "text"  onClick={()=> navigate("Articles")}>
+            <IconButton sx = {{position: "fixed", left: 28, top: 72}} variant = "text"  onClick={()=> navigate("Articles")}>
                 <HomeIcon sx={{ color: 'black', size : "large", edge: "start", }} className="undo-button"/>
             </IconButton>
             
