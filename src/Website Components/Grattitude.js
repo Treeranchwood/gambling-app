@@ -8,7 +8,9 @@ import { useContext, useState } from 'react';
 import ThemeContext from '../Contexts/ThemeContext.js';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
-import getDate from '../Components/getDate.js';
+import { Container, Icon } from '@mui/material';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -16,7 +18,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 function Grattitude() {
     const [selectedDate, setSelectedDate] = useState(dayjs());
-    const [journalVal, setJournalVal] = useState(localStorage.getItem(dayjs().format('DD/MM/YYYY')) || '');
+    const [journalVal, setJournalVal] = useState(localStorage.getItem(selectedDate.format('MM/DD/YYYY')) || '');
     const navigate = useNavigate();
     const { renderComponent } = useContext(NavigationContext);
     const { theme } = useContext(ThemeContext);
@@ -34,9 +36,9 @@ function Grattitude() {
     }
 
     return (
-        <Box>
-            <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 3 }}>
-                <IconButton
+        <>
+
+        <IconButton
                     variant="text"
                     sx={{
                         ml: 2,
@@ -49,26 +51,38 @@ function Grattitude() {
                 >
                     <HomeIcon className="undo-button" />
                 </IconButton>
+        <Box 
+
+        sx={{
+
+            px: 2,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        }}
+        
+        
+        >
+         
+            <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 3 }}>
+                
                 <h1>Journalling!</h1>
             </Stack>
 
-            <Box
+            <Container
+                maxWidth="md"
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
                     gap: 2,
                     p: 2,
+                    boxShadow: 3,
+                    borderRadius: 8,
+                    margin: 3
                 }}
             >
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker
-                        label="Select Date"
-                        value={selectedDate}
-                        onChange={handleDateChange}
-                        sx={{ width: 300 }}
-                    />
-                </LocalizationProvider>
+
 
                 <TextField
                     label="Journal Entry"
@@ -86,8 +100,55 @@ function Grattitude() {
                         mt: 2
                     }}
                 />
-            </Box>
+                <Box sx={{ 
+                    display: "flex", 
+                    width: '100%',
+                    alignItems: 'center',
+                    gap: 4
+                }}>
+                    <Box sx={{ ml: 3, pb: 2  }}>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker
+                                label="Select Date"
+                                value={selectedDate}
+                                onChange={handleDateChange}
+                                sx={{ width: 300 }}
+                            />
+                        </LocalizationProvider>
+                    </Box>
+
+                    <Box sx={{ 
+                        display: "flex", 
+                        gap: 2,
+                        ml: 'auto', 
+                        mr: 3,
+                        pb: 3,
+
+                    }}>
+                        <IconButton
+                            sx={{
+                                '& .MuiSvgIcon-root': {
+                                    color: theme === 'light' ? 'black' : 'white'
+                                }
+                            }}
+                        >
+                            <ArrowBackIcon/> 
+                        </IconButton>
+
+                        <IconButton
+                            sx={{
+                                '& .MuiSvgIcon-root': {
+                                    color: theme === 'light' ? 'black' : 'white'
+                                }
+                            }}
+                        >
+                            <ArrowForwardIcon/> 
+                        </IconButton>
+                    </Box>
+                </Box>
+            </Container>
         </Box>
+        </>
     );
 }
 
