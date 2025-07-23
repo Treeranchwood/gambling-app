@@ -1,4 +1,4 @@
-import useNavigate from '../Hooks/useNavigate.js' // Import your custom hook
+import useNavigate from '../Hooks/useNavigate.js'
 import React from 'react';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -28,8 +28,8 @@ import {
       fontFamily: 'Inter, sans-serif', // Ensure font is applied
       display: 'flex',
       flexDirection: 'column',
-      pt: 2,  // Reduced top padding
-      px: 4,  // Keep horizontal padding
+      pb: 4,
+      px: 4, 
     }}>
      
 
@@ -98,7 +98,7 @@ import {
                   cursor: 'pointer',
                 },
               }}
-              onClick={() => navigate('Goals')} // Use the navigate function from the custom hook
+              onClick={() => navigate('Goals')}
             >
               <CardContent sx={{ textAlign: 'center' }}>
                 <GoalsIcon sx={{ fontSize: 80, color: 'success.main', mb: 2 }} />

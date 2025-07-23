@@ -8,7 +8,7 @@ import { useContext, useState } from 'react';
 import ThemeContext from '../Contexts/ThemeContext.js';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
-import { Container, Icon } from '@mui/material';
+import { Container, Grid, Icon } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import dayjs from 'dayjs';
@@ -35,37 +35,34 @@ function Grattitude() {
         setJournalVal(savedEntry);
     }
 
+    function navigateDay(direction) {
+        const newDate = dayjs(selectedDate).add(direction, 'day');
+        handleDateChange(newDate);
+    }
+
     return (
         <>
-
         <IconButton
-                    variant="text"
-                    sx={{
-                        ml: 2,
-                        mt: 1,
-                        '& .MuiSvgIcon-root': {
-                            color: theme === 'light' ? 'black' : 'white'
-                        }
-                    }}
-                    onClick={() => navigate("WeeklyPlanner")}
-                >
-                    <HomeIcon className="undo-button" />
-                </IconButton>
-        <Box 
-
-        sx={{
-
-            px: 2,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        }}
-        
-        
+            variant="text"
+            sx={{
+                position: 'absolute',
+                ml: 3,
+                mt: 3,
+                '& .MuiSvgIcon-root': {
+                    color: theme === 'light' ? 'black' : 'white'
+                }
+            }}
+            onClick={() => navigate("WeeklyPlanner")}
         >
-         
-            <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 3 }}>
-                
+            <HomeIcon className="undo-button" />
+        </IconButton>
+        <Box sx={{
+            px: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+        }}>
+            <Stack direction="row" alignItems="center" spacing={2} sx={{ my: 3 }}>
                 <h1>Journalling!</h1>
             </Stack>
 
@@ -76,14 +73,12 @@ function Grattitude() {
                     flexDirection: 'column',
                     alignItems: 'center',
                     gap: 2,
-                    p: 2,
+                    p: 3,
                     boxShadow: 3,
                     borderRadius: 8,
                     margin: 3
                 }}
             >
-
-
                 <TextField
                     label="Journal Entry"
                     multiline
@@ -100,19 +95,22 @@ function Grattitude() {
                         mt: 2
                     }}
                 />
-                <Box sx={{ 
+                <Stack direction='row' sx={{ 
                     display: "flex", 
                     width: '100%',
+                    maxWidth: 800,
                     alignItems: 'center',
-                    gap: 4
+                    mt: 2,
+                    
+                    justifyContent: 'space-between',
                 }}>
-                    <Box sx={{ ml: 3, pb: 2  }}>
+                    <Box sx={{ pb: 2 }}>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DatePicker
                                 label="Select Date"
                                 value={selectedDate}
                                 onChange={handleDateChange}
-                                sx={{ width: 300 }}
+                                
                             />
                         </LocalizationProvider>
                     </Box>
@@ -120,12 +118,10 @@ function Grattitude() {
                     <Box sx={{ 
                         display: "flex", 
                         gap: 2,
-                        ml: 'auto', 
-                        mr: 3,
-                        pb: 3,
-
+                        pb: 2,
                     }}>
                         <IconButton
+                            onClick={() => navigateDay(-1)}
                             sx={{
                                 '& .MuiSvgIcon-root': {
                                     color: theme === 'light' ? 'black' : 'white'
@@ -136,6 +132,7 @@ function Grattitude() {
                         </IconButton>
 
                         <IconButton
+                            onClick={() => navigateDay(1)}
                             sx={{
                                 '& .MuiSvgIcon-root': {
                                     color: theme === 'light' ? 'black' : 'white'
@@ -145,7 +142,7 @@ function Grattitude() {
                             <ArrowForwardIcon/> 
                         </IconButton>
                     </Box>
-                </Box>
+                </Stack>
             </Container>
         </Box>
         </>
