@@ -18,7 +18,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 function Grattitude() {
     const [selectedDate, setSelectedDate] = useState(dayjs());
-    const [journalVal, setJournalVal] = useState(localStorage.getItem(selectedDate.format('MM/DD/YYYY')) || '');
+    const [journalVal, setJournalVal] = useState(localStorage.getItem(`journal-${selectedDate.format('MM/DD/YYYY')}`) || '');
     const navigate = useNavigate();
     const { renderComponent } = useContext(NavigationContext);
     const { theme } = useContext(ThemeContext);
@@ -26,12 +26,12 @@ function Grattitude() {
     function handleChange(event) {
         const newValue = event.target.value;
         setJournalVal(newValue);
-        localStorage.setItem(selectedDate.format('MM/DD/YYYY'), newValue);
+        localStorage.setItem(`journal-${selectedDate.format('MM/DD/YYYY')}`, newValue);
     }
 
     function handleDateChange(newDate) {
         setSelectedDate(newDate);
-        const savedEntry = localStorage.getItem(newDate.format('MM/DD/YYYY')) || '';
+        const savedEntry = localStorage.getItem(`journal-${newDate.format('MM/DD/YYYY')}`) || '';
         setJournalVal(savedEntry);
     }
 
@@ -86,7 +86,7 @@ function Grattitude() {
                     maxRows={20}
                     fullWidth
                     variant="outlined"
-                    placeholder="Write your thoughts here..."
+                    placeholder="Journal..."
                     value={journalVal}
                     onChange={handleChange}
                     sx={{
