@@ -20,12 +20,12 @@ import {
 } from '@mui/icons-material';
 
     const Home = () => {
-    const navigate = useNavigate(); // Use the custom hook to get the navigate function
+    const navigate = useNavigate();
     return (
     <Container sx={{
       minHeight: '100vh',
-      bgcolor: 'background.default', // Use Material-UI theme background
-      fontFamily: 'Inter, sans-serif', // Ensure font is applied
+      bgcolor: 'background.default',
+            fontFamily: 'Inter, sans-serif',
       display: 'flex',
       flexDirection: 'column',
       pb: 4,
