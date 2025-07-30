@@ -193,7 +193,7 @@ if (mobileNavbar){
     </AppBar>
     </HideOnScroll>
     </Box>
-    <Box sx={{ minHeight: { xs: 56, sm: 64 } }} /> {/* provides space for the navbar */}
+    <Box sx={{ minHeight: { xs: 56, sm: 64 } }} /> 
 
     </ThemeProvider>
     
@@ -235,7 +235,7 @@ if (mobileNavbar){
         </Toolbar>
     </AppBar>
     </Box>
-    <Box sx={{ minHeight: { xs: 56, sm: 64 } }} /> {/* provides space for the navbar */}
+    <Box sx={{ minHeight: { xs: 56, sm: 64 } }} /> 
     
     </ThemeProvider>
   )

@@ -4,7 +4,7 @@ import useNavigate from '../Hooks/useNavigate.js';
 import IconButton from '@mui/material/IconButton';
 import HomeIcon from '@mui/icons-material/Home';
 import NavigationContext from '../Contexts/NavigationContext.js';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import ThemeContext from '../Contexts/ThemeContext.js';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
@@ -19,6 +19,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 function Goals() {
     const [selectedDate, setSelectedDate] = useState(dayjs());
     const [journalVal, setJournalVal] = useState(localStorage.getItem(`goals-${selectedDate.format('MM/DD/YYYY')}`) || '');
+    const [backendData, setBackendData] = useState('');
     const navigate = useNavigate();
     const { renderComponent } = useContext(NavigationContext);
     const { theme } = useContext(ThemeContext);
@@ -39,6 +40,37 @@ function Goals() {
         const newDate = dayjs(selectedDate).add(direction, 'day');
         handleDateChange(newDate);
     }
+
+    useEffect(() => {
+        const fetchBackendData = async () => {
+            try {
+                // First, let's test the PUT endpoint by sending some data
+                const putResponse = await fetch('http://localhost:3001/api/goals', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        goals: journalVal
+                    })
+                });                
+                const putData = await putResponse.json();
+
+                
+                const getResponse = await fetch('http://localhost:3001/api/goals');
+                const getData = await getResponse.json();
+                console.log('GET Response:', getData);
+                
+                if (getData.success && getData.data.value) {
+                    setBackendData(getData.data.value);
+                }
+            } catch (error) {
+                setBackendData('Error connecting to backend');
+            }
+        };
+
+        fetchBackendData();
+    }, []);
 
     return (
         <>
@@ -145,7 +177,7 @@ function Goals() {
                 </Stack>
             </Container>
         </Box>
-        <p id='goalsPut'></p>
+        <p id='goalsPut'>{backendData}</p>
         </>
     );
 }

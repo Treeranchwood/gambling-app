@@ -17,7 +17,7 @@ import { light, dark } from './Contexts/themes.js';
 
 function App() {
   const [renderComponent, setRenderComponent] = useState("Home"); // State to determine current website output
-  const [theme, setTheme] = useState('dark')
+  const [theme, setTheme] = useState('light')
 
   const componentMap = {
     // map to change a string an object
