@@ -16,6 +16,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
+
 function Goals() {
     const [selectedDate, setSelectedDate] = useState(dayjs());
     const [journalVal, setJournalVal] = useState(localStorage.getItem(`goals-${selectedDate.format('MM/DD/YYYY')}`) || '');
@@ -23,6 +24,10 @@ function Goals() {
     const navigate = useNavigate();
     const { renderComponent } = useContext(NavigationContext);
     const { theme } = useContext(ThemeContext);
+
+
+    
+
 
     function handleChange(event) {
         const newValue = event.target.value;
@@ -44,17 +49,7 @@ function Goals() {
     useEffect(() => {
         const fetchBackendData = async () => {
             try {
-                // First, let's test the PUT endpoint by sending some data
-                const putResponse = await fetch('http://localhost:3001/api/goals', {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        goals: journalVal
-                    })
-                });                
-                const putData = await putResponse.json();
+                
 
                 
                 const getResponse = await fetch('http://localhost:3001/api/goals');
@@ -71,6 +66,26 @@ function Goals() {
 
         fetchBackendData();
     }, []);
+
+
+
+    useEffect(()=>{
+        const sendData = async()=>{
+            console.log("send data")
+            const putResponse = await fetch('http://localhost:3001/api/goals', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    goals: journalVal
+                })
+            });                
+            const putData = await putResponse.json();
+
+        }
+        sendData()
+    }, [journalVal])
 
     return (
         <>
