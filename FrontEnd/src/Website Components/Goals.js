@@ -1,4 +1,3 @@
-
 import Stack from '@mui/material/Stack';
 import useNavigate from '../Hooks/useNavigate.js';
 import IconButton from '@mui/material/IconButton';
@@ -8,13 +7,14 @@ import { useContext, useState, useEffect } from 'react';
 import ThemeContext from '../Contexts/ThemeContext.js';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
-import { Container, Grid, Icon } from '@mui/material';
+import { Container } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { debounce } from 'lodash';
 
 
 function Goals() {
@@ -32,7 +32,9 @@ function Goals() {
     function handleChange(event) {
         const newValue = event.target.value;
         setJournalVal(newValue);
-        localStorage.setItem(`goals-${selectedDate.format('MM/DD/YYYY')}`, newValue);
+                debounce(() => {            
+            localStorage.setItem(`goals-${selectedDate.format('MM/DD/YYYY')}`, newValue);
+        }, 500);
     }
 
     function handleDateChange(newDate) {
@@ -49,9 +51,6 @@ function Goals() {
     useEffect(() => {
         const fetchBackendData = async () => {
             try {
-                
-
-                
                 const getResponse = await fetch('http://localhost:3001/api/goals');
                 const getData = await getResponse.json();
                 console.log('GET Response:', getData);
@@ -64,13 +63,16 @@ function Goals() {
             }
         };
 
-        fetchBackendData();
+
+        const debouncedFetch = () => debounce(fetchBackendData, 500);
+        
+        debouncedFetch();
     }, []);
 
 
 
     useEffect(()=>{
-        const sendData = async()=>{
+        const debouncedSendData = debounce(async () => {
             console.log("send data")
             const putResponse = await fetch('http://localhost:3001/api/goals', {
                 method: 'PUT',
@@ -82,9 +84,10 @@ function Goals() {
                 })
             });                
             const putData = await putResponse.json();
+        }, 1000);
 
-        }
-        sendData()
+        debouncedSendData();
+    
     }, [journalVal])
 
     return (
