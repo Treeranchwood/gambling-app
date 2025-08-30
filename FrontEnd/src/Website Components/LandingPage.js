@@ -6,10 +6,12 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
-
+// function that renders the Landing Page
 function LandingPage () {
 
+  // function that checks the windowsize and returns a state that tells us if we need to switch to Mobile view
   const [windowSize, setWindowSize ] = useState(false)
+  // useEffect required as we are accessing the DOM and not the VDOM - managing side effects
   useEffect(() => {
     const checkMobile = () => {
       setWindowSize(window.innerWidth < 600);
@@ -19,17 +21,14 @@ function LandingPage () {
     window.addEventListener('resize', checkMobile);
   }, [])
 
-
-
-
-
+  // Custom hook that allows navigation between pages
   const navigate = useNavigate()
   
   
 
 
 
-
+  // return the Landing page
     return(
         <Container maxWidth="md" sx={{
         
@@ -44,8 +43,9 @@ function LandingPage () {
         }}>
 
 
-
+          
           <Typography
+          // Title Text
             variant="h2"         
 
             sx={{
@@ -58,6 +58,7 @@ function LandingPage () {
           </Typography>
 
           <Typography
+          // body Text
             variant="h5"
             sx={{
               mb: 5,
@@ -69,7 +70,7 @@ function LandingPage () {
          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </Typography>
 
-<Stack sx={{flexDirection: "row"}}>
+        <Stack sx={{flexDirection: "row"}}>
           <Button
             variant="contained"
             size="large"

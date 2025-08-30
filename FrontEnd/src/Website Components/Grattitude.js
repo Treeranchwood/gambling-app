@@ -16,30 +16,39 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
+
+// return the Journalling section of the app
 function Grattitude() {
+    // useState to handle reloads when changing dates
     const [selectedDate, setSelectedDate] = useState(dayjs());
+    // the value assigned with the journal. Autosaves to local storage
     const [journalVal, setJournalVal] = useState(localStorage.getItem(`journal-${selectedDate.format('MM/DD/YYYY')}`) || '');
+    // custom hook to navigate between pages
     const navigate = useNavigate();
-    const { renderComponent } = useContext(NavigationContext);
+    // context (prop) passed down to allow theme switching
     const { theme } = useContext(ThemeContext);
 
+    // function handles changes in the input area of the app
     function handleChange(event) {
         const newValue = event.target.value;
         setJournalVal(newValue);
         localStorage.setItem(`journal-${selectedDate.format('MM/DD/YYYY')}`, newValue);
     }
 
+    // function handles date changes in the app
     function handleDateChange(newDate) {
         setSelectedDate(newDate);
         const savedEntry = localStorage.getItem(`journal-${newDate.format('MM/DD/YYYY')}`) || '';
         setJournalVal(savedEntry);
     }
 
+    // function to allow us to navigate -1 or +1 days using buttons
     function navigateDay(direction) {
         const newDate = dayjs(selectedDate).add(direction, 'day');
         handleDateChange(newDate);
     }
 
+    // returning the journal
     return (
         <>
         <IconButton
@@ -67,6 +76,7 @@ function Grattitude() {
             </Stack>
 
             <Container
+                // styled container
                 maxWidth="md"
                 sx={{
                     display: 'flex',
@@ -80,6 +90,7 @@ function Grattitude() {
                 }}
             >
                 <TextField
+                    // text field journalling
                     label="Journal Entry"
                     multiline
                     minRows={10}
@@ -95,7 +106,8 @@ function Grattitude() {
                         mt: 2
                     }}
                 />
-                <Stack direction='row' sx={{ 
+                <Stack direction='row' sx={{
+                    // Stack to apply adequate spacing
                     display: "flex", 
                     width: '100%',
                     maxWidth: 800,
@@ -104,6 +116,7 @@ function Grattitude() {
                     
                     justifyContent: 'space-between',
                 }}>
+                    
                     <Box sx={{ pb: 2 }}>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DatePicker
@@ -117,11 +130,13 @@ function Grattitude() {
 
                     <Box sx={{ 
                         display: "flex", 
-                        gap: 2,
+                        gap: 2, // provides spacing between buttons
                         pb: 2,
+                        // Box used to provide proper spacing with the stack
                     }}>
                         <IconButton
                             onClick={() => navigateDay(-1)}
+                            // change colour based on theme
                             sx={{
                                 '& .MuiSvgIcon-root': {
                                     color: theme === 'light' ? 'black' : 'white'

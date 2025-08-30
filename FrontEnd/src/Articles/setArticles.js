@@ -1,0 +1,1 @@
+export const articleArray = [{body: 'Lorem Ipsum Dolor Amet Set', title: 'Title', author: 'Author', imgSrc: 'download.webp'}]

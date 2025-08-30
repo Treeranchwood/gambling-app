@@ -10,14 +10,18 @@ import CloseIcon from '@mui/icons-material/Close';
 import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
+
 function WeeklyPlanner() {
+    // context to set Theme
     const { theme: themeMode } = useContext(ThemeContext);
-    const theme = useTheme(); // Use Material-UI's useTheme hook
+    const theme = useTheme();
+    // Set up navigation hook 
     const navigate = useNavigate();
 
-    // State for all days
+    // states to contain the list items 
     const [monday, setMonday] = useState(() => {
         const saved = localStorage.getItem('monday');
+        // Parsing saved localstorage Json array into Js
         return saved ? JSON.parse(saved) : ["cheese", "milk", "eggs"];
     });
     const [tuesday, setTuesday] = useState(() => {
@@ -45,7 +49,7 @@ function WeeklyPlanner() {
         return saved ? JSON.parse(saved) : [];
     });
 
-    // Input states for all days
+    // States to Handle the On Change at each text 
     const [mondayInput, setMondayInput] = useState("");
     const [tuesdayInput, setTuesdayInput] = useState("");
     const [wednesdayInput, setWednesdayInput] = useState("");
@@ -54,17 +58,18 @@ function WeeklyPlanner() {
     const [saturdayInput, setSaturdayInput] = useState("");
     const [sundayInput, setSundayInput] = useState("");
 
-    // Generic function to add tasks
+    // function to add tasks
     const handleAddTask = (dayTasks, setDayTasks, dayInput, setDayInput, dayName) => {
-        if (dayInput.trim()) {
-            const newTasks = [...dayTasks, dayInput.trim()];
+            // append the old array + added task to an array and then set that array as the list state
+            const newTasks = [...dayTasks, dayInput];
             setDayTasks(newTasks);
+            // save task list to local storage
             localStorage.setItem(dayName.toLowerCase(), JSON.stringify(newTasks));
             setDayInput("");
-        }
+        
     };
 
-    // Generic function to remove tasks
+    // helper function to remove tasks
     const handleRemoveTask = (dayTasks, setDayTasks, index, dayName) => {
         const newTasks = dayTasks.filter((_, i) => i !== index);
         setDayTasks(newTasks);
@@ -72,9 +77,11 @@ function WeeklyPlanner() {
     };
 
 
-    // Helper function to render task list
+    // Helper function to render task list - If it's all in one function then it becomes a bit of a mess
     const renderTaskList = (tasks, setTasks, dayName) => {
-        if (tasks.length === 0) {
+        // Code that renders only when the user has no tasks
+        if (!tasks.length) {
+            // return auto exits the function
             return (
                 <Typography 
                     variant="body2" 
@@ -89,7 +96,7 @@ function WeeklyPlanner() {
                 </Typography>
             );
         }
-
+        // return the styled task list
         return (
             <Stack spacing={1}>
                 {tasks.map((item, index) => (
@@ -139,9 +146,9 @@ function WeeklyPlanner() {
         );
     };
 
-    // Helper function to render add task section
+    // function that renders the addTasks section of each card  
     const renderAddTaskSection = (dayTasks, setDayTasks, dayInput, setDayInput, dayName) => {
-        return (
+        return ( 
             <Box>
                 <Typography 
                     variant="body2" 
@@ -167,7 +174,7 @@ function WeeklyPlanner() {
                         variant="contained"
                         size="small"
                         startIcon={<AddIcon />}
-                        disabled={!dayInput.trim()}
+                        disabled={!dayInput}
                     >
                         Add Task
                     </Button>
@@ -176,7 +183,7 @@ function WeeklyPlanner() {
         );
     };
 
-
+    // renderDayCard function renders the actual card using the two helper functions using renderTaskList and renderAddTaskSection helper functions
     const renderDayCard = (dayName, dayTasks, setDayTasks, dayInput, setDayInput) => {
         return (
             <Grid item xs={12} sm={6} md={4}>
@@ -210,6 +217,7 @@ function WeeklyPlanner() {
         );
     };
 
+    // Rendering the actual UI using the functions above
     return (
         <>
             <Toolbar />

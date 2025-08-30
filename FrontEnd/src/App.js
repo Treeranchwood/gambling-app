@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import Navbar from './Components/Navbar.js';
 import Footer from './Components/Footer.js';
-import Articles from './Website Components/Articles.js';
+import Articles from './Articles/Articles.js';
 import Goals from './Website Components/Goals.js'
 import Grattitude from './Website Components/Grattitude.js';
 import Home from './Website Components/Home.js';
@@ -9,7 +9,7 @@ import WeeklyPlanner from './Website Components/WeeklyPlanner.js';
 import LandingPage from './Website Components/LandingPage.js'
 import NavigationContext from './Contexts/NavigationContext.js';
 import ThemeContext from './Contexts/ThemeContext.js';
-import Article1 from './Articles/Article1.js'
+import Article1 from './Articles/DisplayArticles.js'
 import { Box } from '@mui/material';
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';

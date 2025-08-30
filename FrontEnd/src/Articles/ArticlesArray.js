@@ -1,0 +1,1 @@
+export const articleArray = [{title: "Hello", body: "World", imgSrc: "download.webp", id: "1"}]

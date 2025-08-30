@@ -8,28 +8,28 @@ import IconButton from '@mui/material/IconButton';
 import HomeIcon from '@mui/icons-material/Home';
 import useNavigate from '../Hooks/useNavigate.js';
 
-function Article1() {
+function DisplayArticles() {
     const navigate = useNavigate();
 
-    return (
-        <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3, md: 4 } }}>
-            <Box sx={{ 
-                position: 'relative',
-                width: '100%',
-                mb: 4
-            }}>
-                <IconButton 
+    return( <Box sx={{display: 'flex', flexDirection: 'column'}}>
+   
+            <IconButton 
                     sx={{ 
-                        position: { xs: 'relative', sm: 'absolute' }, 
-                        left: { xs: 0, sm: -16, md: -24 },
-                        top: { xs: 2, sm: 0 },
-                        mb: { xs: 2, sm: 0 }
+                        alignSelf: 'flex-start',
+                        m: 1
                     }} 
                     variant="text" 
                     onClick={() => navigate("Articles")}
                 >
                     <HomeIcon sx={{ color: 'black' }} className="undo-button"/>
                 </IconButton>
+        <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3, md: 4 }, mt: '0px' }}>
+            <Box sx={{ 
+                position: 'relative',
+                width: '100%',
+                mb: 4
+            }}>
+                
 
                 <Box sx={{
                     display: 'flex',
@@ -108,7 +108,8 @@ function Article1() {
                
             </Typography>
         </Container>
+        </Box>
     );
 }
 
-export default Article1;
+export default DisplayArticles;
