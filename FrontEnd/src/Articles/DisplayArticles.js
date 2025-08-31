@@ -1,3 +1,8 @@
+/**
+ * DisplayArticles component renders each individual article te user calls
+ * @component DisplayArticles
+ * @returns {JSX.Element} An article with text, an image, title, and home button to return back to the articles home page
+ */
 import { Container, Divider, Box } from "@mui/material"
 import {Typography} from "@mui/material"
 import '@fontsource/roboto/300.css';
@@ -7,16 +12,35 @@ import '@fontsource/roboto/700.css';
 import IconButton from '@mui/material/IconButton';
 import HomeIcon from '@mui/icons-material/Home';
 import useNavigate from '../Hooks/useNavigate.js';
+import { useContext } from 'react';
+import NavigationContext from '../Contexts/NavigationContext.js';
+import { articleArray } from './ArticlesArray.js';
 
-function DisplayArticles() {
+function Article1() {
+    // gets navigation function from custom hook
     const navigate = useNavigate();
+    
+    // gets current component from navigation context
+    const { renderComponent } = useContext(NavigationContext);
+    
+    /**
+     * gets article ID from renderComponent 
+     * @type {string}
+     */
+    const articleId = renderComponent.replace('Article', '');
+    
+    /**
+     * Finds current article based on the ID
+     */
+    const currentArticle = articleArray.find(article => article.id === articleId) || articleArray[0];
 
     return( <Box sx={{display: 'flex', flexDirection: 'column'}}>
    
             <IconButton 
                     sx={{ 
                         alignSelf: 'flex-start',
-                        m: 1
+                        ml: 3,
+                        mt: 1
                     }} 
                     variant="text" 
                     onClick={() => navigate("Articles")}
@@ -39,8 +63,8 @@ function DisplayArticles() {
                     mt: { xs: 2, sm: 4 }
                 }}>
                     <img 
-                        src="download.webp" 
-                        alt="Article featured image"
+                        src={currentArticle.imgSrc} 
+                        alt={`${currentArticle.title} featured image`}
                         style={{
                             borderRadius: "10%",
                             maxWidth: '100%',
@@ -63,7 +87,7 @@ function DisplayArticles() {
                                 fontSize: { xs: '1.75rem', sm: '2rem', md: '2.25rem' }
                             }}
                         >
-                            Why Gambling is Haram
+                            {currentArticle.title}
                         </Typography>
                         <Typography 
                             variant="h6" 
@@ -74,7 +98,7 @@ function DisplayArticles() {
                                 fontSize: { xs: '1rem', sm: '1.15rem', md: '1.25rem' }
                             }}
                         >
-                            By muslim king 123
+                            Article {currentArticle.id}
                         </Typography>
                     </Box>
                 </Box>
@@ -96,20 +120,20 @@ function DisplayArticles() {
                 }}
             >
                
-                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+                {currentArticle.body}
                 
-                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
-               
-                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
-              
-                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+                <br /><br />
                 
-                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+                This is additional content for Article #{currentArticle.id}. Each article can now have its own unique content and be dynamically rendered based on the ID passed from the articles page.
+                
+                <br /><br />
+                
+                The system now supports multiple articles with unique IDs, making it easy to add new articles and manage content dynamically.
                
             </Typography>
         </Container>
-        </Box>
+    </Box>
     );
 }
 
-export default DisplayArticles;
+export default Article1;

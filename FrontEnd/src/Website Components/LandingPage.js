@@ -1,3 +1,7 @@
+/**
+ * @component LandingPage is the initial page the user loads on to 
+ * @returns {JSX.Element} Landing page that looks pretty and allows for transition into either the articles or the gambling self help
+ */
 import useNavigate from '../Hooks/useNavigate.js';
 import {Container, Typography, Stack, Button, Box} from "@mui/material"
 import {useState, useEffect} from 'react';
@@ -30,6 +34,7 @@ function LandingPage () {
 
   // return the Landing page
     return(
+        // main container for landing page
         <Container maxWidth="md" sx={{
         
            flexGrow: 1, 

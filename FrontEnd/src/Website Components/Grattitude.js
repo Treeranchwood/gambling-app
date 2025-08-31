@@ -1,4 +1,9 @@
 
+/**
+ * @component Grattitude is a journalling interface to allow users to navigate
+ * their feelings and emotions
+ * @returns {JSX.Element} Journalling inputarea with a home button, autosaving and date navigation
+ */
 import Stack from '@mui/material/Stack';
 import useNavigate from '../Hooks/useNavigate.js';
 import IconButton from '@mui/material/IconButton';
@@ -17,15 +22,15 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 
-// return the Journalling section of the app
+
 function Grattitude() {
-    // useState to handle reloads when changing dates
+    // useState to handle date changes
     const [selectedDate, setSelectedDate] = useState(dayjs());
-    // the value assigned with the journal. Autosaves to local storage
+    // the value of the journal in the input area
     const [journalVal, setJournalVal] = useState(localStorage.getItem(`journal-${selectedDate.format('MM/DD/YYYY')}`) || '');
-    // custom hook to navigate between pages
+    // useNavigate hook to change between which components are being rendered
     const navigate = useNavigate();
-    // context (prop) passed down to allow theme switching
+    // context that facilitattes theme switching or the current value of the theme
     const { theme } = useContext(ThemeContext);
 
     // function handles changes in the input area of the app
@@ -51,6 +56,7 @@ function Grattitude() {
     // returning the journal
     return (
         <>
+
         <IconButton
             variant="text"
             sx={{
@@ -65,18 +71,21 @@ function Grattitude() {
         >
             <HomeIcon className="undo-button" />
         </IconButton>
+        
+  
         <Box sx={{
             px: 2,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
         }}>
+
             <Stack direction="row" alignItems="center" spacing={2} sx={{ my: 3 }}>
                 <h1>Journalling!</h1>
             </Stack>
-
+            
             <Container
-                // styled container
+
                 maxWidth="md"
                 sx={{
                     display: 'flex',

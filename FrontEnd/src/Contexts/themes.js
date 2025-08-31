@@ -1,5 +1,13 @@
+/**
+ * Mui theme's that uses palettes which work to change the primary and secondary colours
+ */
+
 import { createTheme } from '@mui/material/styles';
 
+/**
+ * Light theme code and colours
+ * @type {Object} contains the material ui light theme
+ */
 export const light = createTheme({
   palette: {
     mode: 'light',
@@ -12,6 +20,10 @@ export const light = createTheme({
   },
 });
 
+/**
+ * Dark theme code with darker colour palette
+ * @type {Object} contains the material ui dark theme
+ */
 export const dark = createTheme({
   palette: {
     mode: 'dark',

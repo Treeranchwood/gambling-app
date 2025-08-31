@@ -1,3 +1,8 @@
+/**
+ * Navbar component is a navbar with theme switching
+ * @component Navbar
+ * @returns {JSX.Element} Navigation bar with theme switching
+ */
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
@@ -20,7 +25,9 @@ import {dark, light} from '../Contexts/themes.js'
 import { ThemeProvider } from '@mui/material/styles';
 import ThemeContext from '../Contexts/ThemeContext.js';
 
-
+/**
+ *  theme swiching with sun and moon icons
+ */
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
   height: 34,
@@ -77,12 +84,9 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-
-
-
-
-
-
+/**
+ * Component that hides the navbar when scrolling down and shows it when scrolling up.
+ */
 function HideOnScroll(props) {
 
   const { children, window } = props;
@@ -109,27 +113,32 @@ HideOnScroll.propTypes = {
   window: PropTypes.func,
 };
 
-
+/**
+ * Main Navbar component that renders navigation elements and theme controls. 
+ * @returns {JSX.Element} returns a navbar with theme switching, a logo and navigation
+ */
 function Navbar(props) {
-
-
-
-
+  // which component is currently being rendered
   const {renderComponent} = useContext(NavigationContext);
+  
+  // gets navigation function from custom hook
   const navigate = useNavigate();
+  
+  // gets the theme context
   const {theme, setTheme} = useContext(ThemeContext);
 
-
-
+  // toggles between light and dark themes
   function changeTheme(){
     setTheme(prevState => prevState === 'dark' ? 'light' : 'dark');
   }
 
-   const componentMap = {
+  // maps theme names to actual theme objects so that we can actually change the themes
+  const componentMap = {
     'light': light,
     'dark': dark,
    }
 
+  // determines where the navbar button should navigate
   const buttonText1 = renderComponent === "Articles" ? "Home" : "Articles";
   const buttonText2 = renderComponent === "Article1" ? "Home" : "Articles";
   let buttonText = "Articles"
@@ -139,9 +148,10 @@ function Navbar(props) {
   }
   
 
+  // tracks if mobile navigation should be used
   const [mobileNavbar, setMobileNavbar] = useState(false);
 
-
+  // detects mobile screen size and updates navigation state
   useEffect(() => {
     const checkMobile = () => {
       setMobileNavbar(window.innerWidth < 600);
@@ -152,9 +162,11 @@ function Navbar(props) {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  // gets current theme object from component map
   const currentTheme = componentMap[theme]
 
 if (mobileNavbar){
+  // mobile navbar layout
   return (
     <ThemeProvider theme={currentTheme}>
     <Box sx={{display: 'flex'}}>
@@ -199,6 +211,7 @@ if (mobileNavbar){
     
   );
 } else {
+  // desktop navbar layout
   return(
     <ThemeProvider theme={currentTheme}>
     <Box sx={{display: 'flex'}}>

@@ -1,3 +1,8 @@
+/**
+ * Articles component displays a grid of cards that allows users to navigate to their chosen articles
+ * @component Articles
+ * @returns {JSX.Element} A grid of jsx clickable cards
+ */
 import useNavigate from '../Hooks/useNavigate.js'
 import React from 'react';
 import '@fontsource/roboto/300.css';
@@ -5,7 +10,6 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import {articleArray} from "./ArticlesArray.js"
-
 import {
   Box,
   Container,
@@ -18,16 +22,23 @@ import {
 } from '@mui/material';
 
 const Articles = () => {
+    // gets navigation function from custom hook
     const navigate = useNavigate();
 
-    
-
-    const renderCard = (imgSrc, title, body, key)=>{
+    /**
+     * function render card renders the card components for the grids
+     * @param {string} imgSrc - Source path for article image
+     * @param {string} title - Article title
+     * @param {string} body - the brief description of the article
+     * @param {string} id - Unique id of the card so it can be recognised by the display
+     * @returns {JSX.Element} Mui Card components for clickable articles
+     */
+    const renderCard = (imgSrc, title, body, id)=>{
         return(
             <Grid item xs={12} sm={6} md={4}>
         <Card
                             variant="outlined"
-                            id={key}
+                            key={id}
                             sx={{
                                 height: '100%',
                                 display: 'flex',
@@ -40,7 +51,7 @@ const Articles = () => {
                                 },
                             }}
                         >
-                            <CardActionArea onClick={() => navigate("Article1.js")}>
+                            <CardActionArea onClick={() => navigate(`Article${id}`)}>
                                 <CardMedia
                                     component="img"
                                     image={imgSrc}
@@ -74,7 +85,7 @@ const Articles = () => {
                                             lineHeight: 1.6
                                         }}
                                     >
-                                       {body} 
+                                        {body}
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
@@ -126,7 +137,7 @@ const Articles = () => {
 
                 <Grid container spacing={{ xs: 2, sm: 3, md: 4 }} justifyContent="center">        
 
-                    {articleArray.map((key, id)=> renderCard(articleArray[id].imgSrc, articleArray[id].title, articleArray[id].body, key))}
+                    {articleArray.map((article, index)=> renderCard(article.imgSrc, article.title, article.body, article.id))}
                 </Grid>
             </Container>
         </Box>

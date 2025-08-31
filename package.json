@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "jsdoc": "^4.0.4",
     "lodash.debounce": "^4.0.8"
   }
 }

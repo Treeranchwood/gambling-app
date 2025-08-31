@@ -4,9 +4,11 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+/**
+ * Renders the main App component wrapped in React StrictMode
+ */
 root.render(
 
     <React.StrictMode>

@@ -1,3 +1,8 @@
+/**
+ * Weekly planner component - task management for each day of the week
+ * @component WeeklyPlanner
+ * @returns {JSX.Element} Weekly task planning interface
+ */
 import Toolbar from '@mui/material/Toolbar';
 import NavigationContext from '../Contexts/NavigationContext.js';
 import { Box, Typography, IconButton, Card, TextField, Button, ThemeProvider, Container, Grid, Stack, Divider, CardContent, useTheme } from '@mui/material';
@@ -220,22 +225,26 @@ function WeeklyPlanner() {
     // Rendering the actual UI using the functions above
     return (
         <>
-            <Toolbar />
-            <Container maxWidth="lg" sx={{ py: 3, px: 2 }}>
+            <Box >
+
+            <IconButton 
+                    sx={{ 
+                        alignSelf: 'flex-start',
+                        position: 'absolute',
+                        ml: 3,
+                        mt: 1
+                        
+                    }} 
+                    variant="text" 
+                    onClick={() => navigate("Home")}
+                >
+                    <HomeIcon sx={{ color: 'black' }} className="undo-button"/>
+                </IconButton>
+                <Container maxWidth="lg" sx={{ py: 3, px: 2 }}>
+                
                 <Box sx={{ mb: 4, textAlign: 'center' }}>
                     <Stack direction="row" alignItems="center" justifyContent="center" spacing={2} sx={{ mb: 2 }}>
-                        <IconButton
-                            onClick={() => navigate('Home')}
-                            sx={{
-                                color: 'primary.main',
-                                '&:hover': {
-                                    backgroundColor: 'primary.light',
-                                    color: 'white',
-                                },
-                            }}
-                        >
-                            <ArrowBackIcon />
-                        </IconButton>
+                        
                         <Typography 
                             variant="h4" 
                             component="h1" 
@@ -258,7 +267,8 @@ function WeeklyPlanner() {
                     {renderDayCard("Saturday", saturday, setSaturday, saturdayInput, setSaturdayInput)}
                     {renderDayCard("Sunday", sunday, setSunday, sundayInput, setSundayInput)}
                 </Grid>
-            </Container>
+                </Container>
+            </Box>
         </>
     );
 }

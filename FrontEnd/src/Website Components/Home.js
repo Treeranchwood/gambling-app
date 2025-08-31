@@ -1,3 +1,8 @@
+/**
+ * Home component - main landing page with navigation cards to recovery tools
+ * @component Home
+ * @returns {JSX.Element} Home page with interactive navigation cards
+ */
 import useNavigate from '../Hooks/useNavigate.js'
 import React from 'react';
 import '@fontsource/roboto/300.css';
@@ -6,7 +11,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import {  Container,  Typography,  Grid,  Card,  CardContent,} from '@mui/material';
 
-// Import Mui x Datepicker items
+// Import Muix Datepicker items
 import {
   CalendarToday as CalendarIcon,
   EmojiEvents as GoalsIcon,
@@ -16,10 +21,17 @@ import {
     // function that returns the Home Page
     const Home = () => {
     
-    // hook to navigate pages
+    // gets navigation function from custom hook
     const navigate = useNavigate();
 
-    // composable function to render Home Card components
+    /**
+     * Renders the different card components in a grid to allow users to navigate to their chosen component
+     * @param {string} name is the name of the component to navigate to 
+     * @param {string} title displays the title of the card
+     * @param {string} body some body text outlining the tool
+     * @param {React.ReactElement} icon which Icon do we want to display
+     * @returns {JSX.Element} returns a clickable grid of cards for the user to interact with
+     */
     const renderCard = (name, title, body, icon) =>{
       return(
         <Card
@@ -60,6 +72,7 @@ import {
 
     //  render the home page using the render card function
     return (
+    // main container for home page
     <Container sx={{
       minHeight: '100vh',
       bgcolor: 'background.default',
