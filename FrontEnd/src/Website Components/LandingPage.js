@@ -59,7 +59,7 @@ function LandingPage () {
               fontSize: '4.5rem',
             }}
           >
-            Lorem ipsum dolor sit amet
+            This app is designed to help people quit Gambling
           </Typography>
 
           <Typography
@@ -72,7 +72,7 @@ function LandingPage () {
               mx: 5
             }}
           >
-         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+         Either go read articles, or get started on your journey by going to the home page
           </Typography>
 
         <Stack sx={{flexDirection: "row"}}>
