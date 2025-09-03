@@ -21,6 +21,8 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
+    "jsdoc": "^4.0.4",
+    "lodash.debounce": "^4.0.8",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

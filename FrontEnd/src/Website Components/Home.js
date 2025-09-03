@@ -96,7 +96,7 @@ import {
 
           <Grid item xs={12} sm={6} md={4}>
             <div>
-              {renderCard('WeeklyPlanner', 'Weekly Planner', 'This is the body text', <CalendarIcon sx={{ fontSize: 80, color: 'primary.main', mb: 2 }} /> )}
+              {renderCard('WeeklyPlanner', 'Weekly Planner', 'The weekly planner is designed to plan out your day!', <CalendarIcon sx={{ fontSize: 80, color: 'primary.main', mb: 2 }} /> )}
             </div>
           </Grid>
 

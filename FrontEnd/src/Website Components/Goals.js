@@ -96,8 +96,8 @@ function Goals() {
 
     // onchange of the inputarea a debounced fetch is sent to the server - ideally when this is 
     // we should increase the debounced fetch so that we can view this later
-    useEffect(()=>{
-        const debouncedSendData = debounce(async (value) => {
+    const debouncedSendData = useMemo(() =>
+        debounce(async (value) => {
             console.log("send data")
             const putResponse = await fetch('http://localhost:3001/api/goals', {
                 method: 'PUT',
@@ -109,11 +109,14 @@ function Goals() {
                 })
             });                
             const putData = await putResponse.json();
-        }, 1000);
+        }, 1000),
+        []
+    );
 
+    // only on change of the debounced data should we ever send to the backend
+    useEffect(() => {
         debouncedSendData(journalVal);
-    
-    }, [journalVal])
+    }, [journalVal, debouncedSendData])
 
     return (
         <>
@@ -122,12 +125,12 @@ function Goals() {
             sx={{
                 position: 'absolute',
                 ml: 3,
-                mt: 3,
+                mt: 1,
                 '& .MuiSvgIcon-root': {
                     color: theme === 'light' ? 'black' : 'white'
                 }
             }}
-            onClick={() => navigate("WeeklyPlanner")}
+            onClick={() => navigate("Home")}
         >
             <HomeIcon className="undo-button" />
         </IconButton>

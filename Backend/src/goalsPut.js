@@ -5,7 +5,7 @@ const app = express();
 // enables CORS which allows communication between browser tabs
 app.use(require('cors')());
 // parses JSON 
-app.use(require('express').json());
+app.use(express.json());
 
 // value to be sent via put request
 let goalsData = {value: "Hi"}

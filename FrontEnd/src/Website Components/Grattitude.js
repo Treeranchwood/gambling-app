@@ -67,7 +67,7 @@ function Grattitude() {
                     color: theme === 'light' ? 'black' : 'white'
                 }
             }}
-            onClick={() => navigate("WeeklyPlanner")}
+            onClick={() => navigate("Home")}
         >
             <HomeIcon className="undo-button" />
         </IconButton>
